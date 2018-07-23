@@ -1,0 +1,113 @@
+package analizadores; 
+import java_cup.runtime.*;
+
+import arbol.Imprimir;
+import arbol.Declaracion;
+import arbol.Instruccion;
+import arbol.Operacion;
+import arbol.Nodo.Tipo;
+import arbol.TablaSimbolos;
+import java.util.LinkedList;
+
+parser code 
+{:
+    public LinkedList<Instruccion> AST;
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) +
+        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    } 
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + 
+        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
+        " no reconocido."); 
+    }  
+
+    public LinkedList<Instruccion> getAST() {
+        return AST;
+    }
+:}
+
+
+non terminal ini;
+non terminal LinkedList<Instruccion> sentencias;
+non terminal Instruccion instruccion;
+non terminal declaracion;
+non terminal asignacion;
+non terminal Operacion exp;
+non terminal exp_num;
+non terminal Operacion exp_cad;
+non terminal exp_bool;
+non terminal tipo;
+
+terminal String RIMPRIMIR, RNUMBER, RDECLARE, RSTRING, RBOOLEAN;
+terminal String RTRUE, RFALSE;
+terminal String PTCOMA, PARIZQ, PARDER;
+terminal String MAS, MENOS, POR, DIVISION, CONCAT;
+terminal String MENORQUE, MENORIGUALQUE, MAYORQUE, MAYORIGUALQUE, DISTINTO, IGUAL, IGUALIGUAL;
+terminal String ENTERO;
+terminal String DECIMAL;
+terminal String IDENTIFICADOR;
+terminal String CADENA;
+terminal String UMENOS;
+
+precedence left CONCAT;
+precedence left MAS,MENOS;
+precedence left POR,DIVISION;
+precedence right UMENOS;
+
+start with ini;
+
+ini::=  sentencias :a{:parser.AST=a;:};
+
+sentencias::=   sentencias:a instruccion:b {:RESULT=a; RESULT.add(b);:}
+                | instruccion:a{:RESULT=new LinkedList<>(); RESULT.add(a);:};
+
+instruccion::=    RIMPRIMIR PARIZQ exp:a PARDER PTCOMA  {:RESULT=new Imprimir(a);:}
+                    |declaracion PTCOMA
+                    |asignacion PTCOMA
+                    |error; 
+
+declaracion ::= RDECLARE tipo IDENTIFICADOR;
+
+asignacion ::= IDENTIFICADOR IGUAL exp;
+
+exp ::=  exp_cad:a                  {:RESULT=a;:}
+        |exp_bool
+        |exp_num;
+
+exp_cad ::= exp_cad:a CONCAT exp:b  {:RESULT = new Operacion(a, b,Operacion.Tipo_Operador.CONCATENACION);:}
+        |CADENA:a                   {:RESULT = new Operacion(a, Operacion.Tipo_Operador.CADENA);:};
+
+exp_bool::= exp_num IGUALIGUAL exp_num
+         |exp_num MAYORQUE exp_num
+         |exp_num MENORQUE exp_num
+         |exp_num MENORIGUALQUE exp_num    
+         |exp_num MAYORIGUALQUE exp_num
+         |exp_num DISTINTO exp_num;
+
+
+exp_num ::= exp_num MAS exp_num
+            |exp_num MENOS exp_num
+            |exp_num POR exp_num
+            |exp_num DIVISION exp_num
+            |MENOS exp_num  %prec UMENOS
+            |PARIZQ exp_num PARDER 
+            |ENTERO
+            |DECIMAL
+            |IDENTIFICADOR
+            |RTRUE
+            |RFALSE;
+
+tipo ::= RNUMBER
+        |RSTRING
+        |RBOOLEAN;
+
