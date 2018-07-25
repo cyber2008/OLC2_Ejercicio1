@@ -1,2 +1,42 @@
 //Se imprime el encabezado
 Print("Tablas de" & " multiplicar");
+
+//Se declara la variable a, de tipo numero
+Declare Number a;
+
+//Se asigna a la variable a el valor 5
+a=5;
+
+//Se imprime un el valor de la variable a
+Print("a = " & a);
+
+//Se declara la variable c, de tipo numero
+Declare Number c;
+
+//Se asigna a la variable c el valor 10
+c=10;
+
+//Se imprime un el valor de la variable c
+Print("c = " & c);
+
+//Se imprime un el valor de las variables sumadas
+Print("a + c = " & a + c);
+
+//Se imprime un el valor de las variables restadas
+Print("a - c = " & a - c);
+
+//Se imprime una comparación de las variables
+Print("a > c = " & a > c);
+
+//Se imprime una comparación de las variables
+Print("a < c = " & a < c);
+
+//Se declara la variable d, de tipo boolean
+Declare Boolean d;
+
+//Se asigna a la variable d una comparación
+d = a <> c;
+
+//Se imprime el valor de la variable booleana d
+Print("d = " & d);
+

@@ -18,6 +18,7 @@ public class Nodo {
         this.tipo = tipo;
         this.id = id;
     }
+    
 
     public String getId() {
         return id;
@@ -32,6 +33,6 @@ public class Nodo {
     }
     
     public static enum Tipo{
-        NUMERO
+        NUMERO, CADENA, BOOLEANO
     }
 }

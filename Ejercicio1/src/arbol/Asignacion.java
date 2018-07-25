@@ -9,21 +9,20 @@ package arbol;
  *
  * @author eliu
  */
-public class Declaracion implements Instruccion {
-    private final String id;
-    
-    Nodo.Tipo tipo;
+public class Asignacion implements Instruccion{
 
-    public Declaracion(String a, Nodo.Tipo t) {
-        this.id = a;
-        this.tipo = t;
+    private final String id;
+    private final Operacion valor;
+    
+    public Asignacion(String id, Operacion op) {
+        this.id = id;
+        this.valor = op;
     }
 
     @Override
     public Object ejecutar(TablaSimbolos TS) {
-        TS.add(new Nodo(id, tipo));
+        TS.setValor(id,valor.ejecutar(TS));
         return null;
     }
-    
     
 }

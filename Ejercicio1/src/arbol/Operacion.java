@@ -46,7 +46,12 @@ public class Operacion implements Instruccion{
     public Operacion(String strValor, Tipo_Operador tipo) {
         this.valor = strValor;
         this.tipo = tipo;
-    }    
+    } 
+    
+    public Operacion(Operacion opIzq, Tipo_Operador tipo) {
+        this.tipo = tipo;
+        this.opIzq = opIzq;
+    } 
     
     public Operacion(Double a) {
         this.valor=a;

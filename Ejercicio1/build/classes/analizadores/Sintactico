@@ -3,6 +3,7 @@ import java_cup.runtime.*;
 
 import arbol.Imprimir;
 import arbol.Declaracion;
+import arbol.Asignacion;
 import arbol.Instruccion;
 import arbol.Operacion;
 import arbol.Nodo.Tipo;
@@ -40,13 +41,13 @@ parser code
 non terminal ini;
 non terminal LinkedList<Instruccion> sentencias;
 non terminal Instruccion instruccion;
-non terminal declaracion;
-non terminal asignacion;
+non terminal Declaracion declaracion;
+non terminal Asignacion asignacion;
 non terminal Operacion exp;
-non terminal exp_num;
+non terminal Operacion exp_num;
 non terminal Operacion exp_cad;
-non terminal exp_bool;
-non terminal tipo;
+non terminal Operacion exp_bool;
+non terminal Tipo tipo;
 
 terminal String RIMPRIMIR, RNUMBER, RDECLARE, RSTRING, RBOOLEAN;
 terminal String RTRUE, RFALSE;
@@ -72,42 +73,46 @@ sentencias::=   sentencias:a instruccion:b {:RESULT=a; RESULT.add(b);:}
                 | instruccion:a{:RESULT=new LinkedList<>(); RESULT.add(a);:};
 
 instruccion::=    RIMPRIMIR PARIZQ exp:a PARDER PTCOMA  {:RESULT=new Imprimir(a);:}
-                    |declaracion PTCOMA
-                    |asignacion PTCOMA
+                    |declaracion:a PTCOMA  {:RESULT=a;:}                
+                    |asignacion:a PTCOMA   {:RESULT=a;:} 
                     |error; 
 
-declaracion ::= RDECLARE tipo IDENTIFICADOR;
+declaracion ::= RDECLARE tipo:a  IDENTIFICADOR:b {:RESULT= new Declaracion(b,a); System.out.println("tipo "+a); :};
 
-asignacion ::= IDENTIFICADOR IGUAL exp;
+asignacion ::= IDENTIFICADOR:a IGUAL exp:b {:RESULT=new Asignacion(a, b);:};
 
 exp ::=  exp_cad:a                  {:RESULT=a;:}
-        |exp_bool
-        |exp_num;
+        |exp_bool:a                 {:RESULT=a;:}
+        |exp_num:a                  {:RESULT=a;:}
+;
 
 exp_cad ::= exp_cad:a CONCAT exp:b  {:RESULT = new Operacion(a, b,Operacion.Tipo_Operador.CONCATENACION);:}
-        |CADENA:a                   {:RESULT = new Operacion(a, Operacion.Tipo_Operador.CADENA);:};
+        |CADENA:a                   {:RESULT = new Operacion(a, Operacion.Tipo_Operador.CADENA);:}
+;
 
-exp_bool::= exp_num IGUALIGUAL exp_num
-         |exp_num MAYORQUE exp_num
-         |exp_num MENORQUE exp_num
-         |exp_num MENORIGUALQUE exp_num    
-         |exp_num MAYORIGUALQUE exp_num
-         |exp_num DISTINTO exp_num;
+exp_bool::= exp_num:a IGUALIGUAL exp_num:b      {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.IGUALIGUAL);:}
+         |exp_num:a MAYORQUE exp_num:b          {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.MAYORQUE);:}
+         |exp_num:a MENORQUE exp_num:b          {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.MENORQUE);:}
+         |exp_num:a MENORIGUALQUE exp_num:b     {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.MENORIGUALQUE);:}
+         |exp_num:a MAYORIGUALQUE exp_num:b     {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.MAYORIGUALQUE);:}
+         |exp_num:a DISTINTO exp_num:b         {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.DISTINTO);:}
+;
 
 
-exp_num ::= exp_num MAS exp_num
-            |exp_num MENOS exp_num
-            |exp_num POR exp_num
-            |exp_num DIVISION exp_num
-            |MENOS exp_num  %prec UMENOS
-            |PARIZQ exp_num PARDER 
-            |ENTERO
-            |DECIMAL
-            |IDENTIFICADOR
+exp_num ::= exp_num:a MAS exp_num:b         {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.SUMA);:}
+            |exp_num:a MENOS exp_num:b      {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.RESTA);:}
+            |exp_num:a POR exp_num:b        {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.MULTIPLICACION);:}
+            |exp_num:a DIVISION exp_num:b   {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.DIVISION);:}  
+            |MENOS exp_num:a                {:RESULT = new Operacion(a, Operacion.Tipo_Operador.NEGATIVO);:} %prec UMENOS 
+            |PARIZQ exp:a PARDER            {:RESULT = a;:}
+            |ENTERO:a                       {:RESULT = new Operacion(new Double(a));:}
+            |DECIMAL:a                      {:RESULT = new Operacion(new Double(a));:}
+            |IDENTIFICADOR:a                {:RESULT = new Operacion(a,Operacion.Tipo_Operador.IDENTIFICADOR);:}
             |RTRUE
-            |RFALSE;
+            |RFALSE
+            ;
 
-tipo ::= RNUMBER
-        |RSTRING
-        |RBOOLEAN;
-
+tipo ::= RNUMBER                      {:RESULT = Tipo.NUMERO;:}
+        |RSTRING                      {:RESULT = Tipo.CADENA;:}
+        |RBOOLEAN                     {:RESULT = Tipo.BOOLEANO;:}
+;
