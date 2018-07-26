@@ -16,13 +16,16 @@ public class sym {
   public static final int RSTRING = 5;
   public static final int DIVISION = 15;
   public static final int RIMPRIMIR = 2;
+  public static final int RAND = 30;
   public static final int PARIZQ = 10;
   public static final int MAYORQUE = 19;
   public static final int CONCAT = 16;
   public static final int PARDER = 11;
   public static final int UMENOS = 28;
   public static final int POR = 14;
+  public static final int RNOT = 29;
   public static final int RBOOLEAN = 6;
+  public static final int ROR = 31;
   public static final int DISTINTO = 21;
   public static final int EOF = 0;
   public static final int MENORIGUALQUE = 18;
@@ -66,7 +69,10 @@ public class sym {
   "DECIMAL",
   "IDENTIFICADOR",
   "CADENA",
-  "UMENOS"
+  "UMENOS",
+  "RNOT",
+  "RAND",
+  "ROR"
   };
 }
 

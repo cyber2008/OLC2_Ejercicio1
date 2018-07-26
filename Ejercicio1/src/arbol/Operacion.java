@@ -26,7 +26,12 @@ public class Operacion implements Instruccion{
         MENORIGUALQUE,
         IGUALIGUAL,
         DISTINTO,
-        CONCATENACION
+        CONCATENACION,
+        VERDADERO,
+        FALSO,
+        AND,
+        OR,
+        NOT
     }
     
     private final Tipo_Operador tipo;
@@ -92,6 +97,16 @@ public class Operacion implements Instruccion{
                 return ((Double) opIzq.ejecutar(TS)).doubleValue() != ((Double) opDer.ejecutar(TS)).doubleValue();                            
             case CONCATENACION:
                 return opIzq.ejecutar(TS).toString()+opDer.ejecutar(TS).toString();
+            case VERDADERO:
+                return valor = true;
+            case FALSO:
+                return valor = false;
+            case NOT:
+                return !Boolean.valueOf(opIzq.ejecutar(TS).toString());
+            case AND:
+                return Boolean.valueOf(opIzq.ejecutar(TS).toString()) && Boolean.valueOf(opDer.ejecutar(TS).toString());
+            case OR:
+                return Boolean.valueOf(opIzq.ejecutar(TS).toString()) || Boolean.valueOf(opDer.ejecutar(TS).toString());
             default:
                 return null;              
         }

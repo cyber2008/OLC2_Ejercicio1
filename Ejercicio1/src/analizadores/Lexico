@@ -35,6 +35,9 @@ COMENTARIO_MULTILINEA = "/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"
 "Boolean" {return new Symbol(sym.RBOOLEAN, yyline, yychar, yytext());}
 "True" {return new Symbol(sym.RTRUE, yyline, yychar, yytext());}
 "False" {return new Symbol(sym.RFALSE, yyline, yychar, yytext());}
+"Not" {return new Symbol(sym.RNOT, yyline, yychar, yytext());}
+"And" {return new Symbol(sym.RAND, yyline, yychar, yytext());}
+"Or" {return new Symbol(sym.ROR, yyline, yychar, yytext());}
 
 ";" {return new Symbol(sym.PTCOMA,yyline,yychar, yytext());} 
 "(" {return new Symbol(sym.PARIZQ,yyline,yychar, yytext());} 

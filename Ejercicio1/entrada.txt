@@ -40,3 +40,13 @@ d = a <> c;
 //Se imprime el valor de la variable booleana d
 Print("d = " & d);
 
+//Se imprime la negación de la variable booleana d
+Print("not d = " & not d);
+
+//Se imprime operaciones booleanas de prueba
+Print("a > c and  a > c =" & a > c and  a > c);
+Print("a > c or  a > c =" & a > c or  a > c);
+Print("a > c and  a < c =" & a > c and  a < c);
+Print("a > c or  a < c =" & a > c or  a < c);
+Print("true and false or true =" & true and false or true);
+Print("true and false or not true =" & true and false and not true);

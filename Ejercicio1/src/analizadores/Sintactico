@@ -47,6 +47,7 @@ non terminal Operacion exp;
 non terminal Operacion exp_num;
 non terminal Operacion exp_cad;
 non terminal Operacion exp_bool;
+non terminal Operacion exp_log;
 non terminal Tipo tipo;
 
 terminal String RIMPRIMIR, RNUMBER, RDECLARE, RSTRING, RBOOLEAN;
@@ -59,11 +60,16 @@ terminal String DECIMAL;
 terminal String IDENTIFICADOR;
 terminal String CADENA;
 terminal String UMENOS;
+terminal String RNOT;
+terminal String RAND;
+terminal String ROR;
 
 precedence left CONCAT;
 precedence left MAS,MENOS;
 precedence left POR,DIVISION;
+precedence left RAND, ROR;
 precedence right UMENOS;
+precedence right RNOT;
 
 start with ini;
 
@@ -84,6 +90,12 @@ asignacion ::= IDENTIFICADOR:a IGUAL exp:b {:RESULT=new Asignacion(a, b);:};
 exp ::=  exp_cad:a                  {:RESULT=a;:}
         |exp_bool:a                 {:RESULT=a;:}
         |exp_num:a                  {:RESULT=a;:}
+        |exp_log:a                  {:RESULT=a;:}
+;
+
+exp_log ::= exp:a RAND exp:b  {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.AND);:}
+            |exp:a ROR exp:b  {:RESULT = new Operacion(a, b, Operacion.Tipo_Operador.OR);:}
+            |RNOT exp:b             {:RESULT = new Operacion(b, Operacion.Tipo_Operador.NOT);:}
 ;
 
 exp_cad ::= exp_cad:a CONCAT exp:b  {:RESULT = new Operacion(a, b,Operacion.Tipo_Operador.CONCATENACION);:}
@@ -108,8 +120,8 @@ exp_num ::= exp_num:a MAS exp_num:b         {:RESULT = new Operacion(a, b, Opera
             |ENTERO:a                       {:RESULT = new Operacion(new Double(a));:}
             |DECIMAL:a                      {:RESULT = new Operacion(new Double(a));:}
             |IDENTIFICADOR:a                {:RESULT = new Operacion(a,Operacion.Tipo_Operador.IDENTIFICADOR);:}
-            |RTRUE
-            |RFALSE
+            |RTRUE:a                        {:RESULT = new Operacion(a,Operacion.Tipo_Operador.VERDADERO);:}
+            |RFALSE:a                       {:RESULT = new Operacion(a,Operacion.Tipo_Operador.FALSO);:}
             ;
 
 tipo ::= RNUMBER                      {:RESULT = Tipo.NUMERO;:}
