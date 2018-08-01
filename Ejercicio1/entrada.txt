@@ -50,3 +50,8 @@ Print("a > c and  a < c =" & a > c and  a < c);
 Print("a > c or  a < c =" & a > c or  a < c);
 Print("true and false or true =" & true and false or true);
 Print("true and false or not true =" & true and false and not true);
+
+if(c>a){
+Print("aaa");
+}
+

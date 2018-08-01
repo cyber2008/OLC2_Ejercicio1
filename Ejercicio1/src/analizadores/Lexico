@@ -38,10 +38,13 @@ COMENTARIO_MULTILINEA = "/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"
 "Not" {return new Symbol(sym.RNOT, yyline, yychar, yytext());}
 "And" {return new Symbol(sym.RAND, yyline, yychar, yytext());}
 "Or" {return new Symbol(sym.ROR, yyline, yychar, yytext());}
+"If" {return new Symbol(sym.RIF, yyline, yychar, yytext());}
 
 ";" {return new Symbol(sym.PTCOMA,yyline,yychar, yytext());} 
 "(" {return new Symbol(sym.PARIZQ,yyline,yychar, yytext());} 
 ")" {return new Symbol(sym.PARDER,yyline,yychar, yytext());} 
+"{" {return new Symbol(sym.LLAVEIZQ,yyline,yychar, yytext());} 
+"}" {return new Symbol(sym.LLAVEDER,yyline,yychar, yytext());} 
 "+" {return new Symbol(sym.MAS,yyline,yychar, yytext());} 
 "-" {return new Symbol(sym.MENOS,yyline,yychar, yytext());} 
 "*" {return new Symbol(sym.POR,yyline,yychar, yytext());} 
