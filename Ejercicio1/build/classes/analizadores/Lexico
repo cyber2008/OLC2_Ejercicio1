@@ -39,6 +39,7 @@ COMENTARIO_MULTILINEA = "/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"
 "And" {return new Symbol(sym.RAND, yyline, yychar, yytext());}
 "Or" {return new Symbol(sym.ROR, yyline, yychar, yytext());}
 "If" {return new Symbol(sym.RIF, yyline, yychar, yytext());}
+"Else" {return new Symbol(sym.RELSE, yyline, yychar, yytext());}
 
 ";" {return new Symbol(sym.PTCOMA,yyline,yychar, yytext());} 
 "(" {return new Symbol(sym.PARIZQ,yyline,yychar, yytext());} 

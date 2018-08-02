@@ -52,7 +52,7 @@ non terminal Operacion exp_log;
 non terminal Tipo tipo;
 non terminal SentenciaIf sentenciaIf;
 
-terminal String RIMPRIMIR, RNUMBER, RDECLARE, RSTRING, RBOOLEAN, RIF;
+terminal String RIMPRIMIR, RNUMBER, RDECLARE, RSTRING, RBOOLEAN, RIF, RELSE;
 terminal String RTRUE, RFALSE;
 terminal String PTCOMA, PARIZQ, PARDER, LLAVEIZQ, LLAVEDER;
 terminal String MAS, MENOS, POR, DIVISION, CONCAT;
@@ -84,6 +84,7 @@ instruccion::=    RIMPRIMIR PARIZQ exp:a PARDER PTCOMA  {:RESULT=new Imprimir(a)
                     |declaracion:a PTCOMA  {:RESULT=a;:}                
                     |asignacion:a PTCOMA   {:RESULT=a;:} 
                     |RIF PARIZQ exp:a PARDER LLAVEIZQ sentencias:b LLAVEDER  {:RESULT = new SentenciaIf(a,b);:} 
+                    |RIF PARIZQ exp:a PARDER LLAVEIZQ sentencias:b LLAVEDER RELSE LLAVEIZQ sentencias:c LLAVEDER {:RESULT = new SentenciaIf(a,b,c);:}  
                     |error; 
 
 declaracion ::= RDECLARE tipo:a  IDENTIFICADOR:b {:RESULT= new Declaracion(b,a); System.out.println("tipo "+a); :};

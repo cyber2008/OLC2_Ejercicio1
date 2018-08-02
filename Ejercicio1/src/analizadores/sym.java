@@ -8,41 +8,42 @@ package analizadores;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int MENOS = 16;
-  public static final int IGUALIGUAL = 26;
-  public static final int CADENA = 30;
-  public static final int IGUAL = 25;
-  public static final int DECIMAL = 28;
-  public static final int DIVISION = 18;
-  public static final int RSTRING = 5;
-  public static final int RIMPRIMIR = 2;
-  public static final int RAND = 33;
-  public static final int PARIZQ = 11;
-  public static final int MAYORQUE = 22;
-  public static final int CONCAT = 19;
-  public static final int PARDER = 12;
-  public static final int UMENOS = 31;
-  public static final int POR = 17;
-  public static final int RNOT = 32;
-  public static final int RBOOLEAN = 6;
-  public static final int LLAVEIZQ = 13;
-  public static final int ROR = 34;
-  public static final int LLAVEDER = 14;
-  public static final int DISTINTO = 24;
-  public static final int EOF = 0;
-  public static final int MENORIGUALQUE = 21;
-  public static final int RFALSE = 9;
-  public static final int MENORQUE = 20;
-  public static final int error = 1;
-  public static final int RIF = 7;
-  public static final int IDENTIFICADOR = 29;
-  public static final int RNUMBER = 3;
-  public static final int ENTERO = 27;
   public static final int RDECLARE = 4;
-  public static final int MAYORIGUALQUE = 23;
-  public static final int RTRUE = 8;
-  public static final int MAS = 15;
-  public static final int PTCOMA = 10;
+  public static final int DISTINTO = 25;
+  public static final int RIMPRIMIR = 2;
+  public static final int RSTRING = 5;
+  public static final int RTRUE = 9;
+  public static final int POR = 18;
+  public static final int CONCAT = 20;
+  public static final int ENTERO = 28;
+  public static final int LLAVEDER = 15;
+  public static final int RFALSE = 10;
+  public static final int RELSE = 8;
+  public static final int IDENTIFICADOR = 30;
+  public static final int MAYORQUE = 23;
+  public static final int IGUAL = 26;
+  public static final int UMENOS = 32;
+  public static final int EOF = 0;
+  public static final int PARIZQ = 12;
+  public static final int DECIMAL = 29;
+  public static final int MAYORIGUALQUE = 24;
+  public static final int error = 1;
+  public static final int CADENA = 31;
+  public static final int MENOS = 17;
+  public static final int MENORQUE = 21;
+  public static final int IGUALIGUAL = 27;
+  public static final int RNUMBER = 3;
+  public static final int LLAVEIZQ = 14;
+  public static final int PTCOMA = 11;
+  public static final int ROR = 35;
+  public static final int MENORIGUALQUE = 22;
+  public static final int RBOOLEAN = 6;
+  public static final int PARDER = 13;
+  public static final int DIVISION = 19;
+  public static final int RIF = 7;
+  public static final int RNOT = 33;
+  public static final int RAND = 34;
+  public static final int MAS = 16;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -52,6 +53,7 @@ public class sym {
   "RSTRING",
   "RBOOLEAN",
   "RIF",
+  "RELSE",
   "RTRUE",
   "RFALSE",
   "PTCOMA",

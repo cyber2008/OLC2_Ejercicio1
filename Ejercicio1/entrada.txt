@@ -53,5 +53,14 @@ Print("true and false or not true =" & true and false and not true);
 
 if(c>a){
 Print("aaa");
+if(c<a){
+Print("aabb");
 }
+else{
+Print("bbb");
+}else{
+Print("bbb2");
+}
+}
+
 

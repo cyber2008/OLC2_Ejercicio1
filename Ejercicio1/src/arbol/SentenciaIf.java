@@ -15,12 +15,19 @@ public class SentenciaIf implements Instruccion{
 
     private Operacion cond;
     private LinkedList<Instruccion> sent;
+    private LinkedList<Instruccion> sentElse;
     
     public SentenciaIf(Operacion cond, LinkedList<Instruccion> sent) {
         this.cond = cond;
         this.sent = sent;
     }
 
+    public SentenciaIf(Operacion cond, LinkedList<Instruccion> sent, LinkedList<Instruccion> sentElse) {
+        this.cond = cond;
+        this.sent = sent;
+        this.sentElse = sentElse;
+    }
+        
     public SentenciaIf(Operacion cond) {
         this.cond = cond;
     }
@@ -35,7 +42,11 @@ public class SentenciaIf implements Instruccion{
                     in.ejecutar(tablaLocal);
                 }
         }else{
-            System.out.println("condicion no se cumple");
+                TablaSimbolos tablaLocal=new TablaSimbolos();
+                tablaLocal.addAll(TS);
+                for(Instruccion in: sentElse){
+                    in.ejecutar(tablaLocal);
+                }
         }
          return null;
 
